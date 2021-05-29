@@ -268,6 +268,7 @@ export type NexusGenAllTypes = NexusGenRootTypes & NexusGenScalars
 
 export interface NexusGenFieldTypes {
   CategoryBackend: { // field return type
+    children: NexusGenRootTypes['CategoryBackend'][]; // [CategoryBackend!]!
     createdAt: NexusGenScalars['DateTime']; // DateTime!
     id: number; // Int!
     level: number; // Int!
@@ -286,6 +287,7 @@ export interface NexusGenFieldTypes {
 
 export interface NexusGenFieldTypeNames {
   CategoryBackend: { // field return type name
+    children: 'CategoryBackend'
     createdAt: 'DateTime'
     id: 'Int'
     level: 'Int'
@@ -303,6 +305,14 @@ export interface NexusGenFieldTypeNames {
 }
 
 export interface NexusGenArgTypes {
+  CategoryBackend: {
+    children: { // args
+      after?: NexusGenInputs['CategoryBackendWhereUniqueInput'] | null; // CategoryBackendWhereUniqueInput
+      before?: NexusGenInputs['CategoryBackendWhereUniqueInput'] | null; // CategoryBackendWhereUniqueInput
+      first?: number | null; // Int
+      last?: number | null; // Int
+    }
+  }
   Mutation: {
     createOneCategoryBackend: { // args
       data: NexusGenInputs['CategoryBackendCreateInput']; // CategoryBackendCreateInput!

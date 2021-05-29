@@ -10,5 +10,6 @@ export const CategoryBackend = objectType({
     t.model.show();
     t.model.createdAt();
     t.model.updatedAt();
+    t.model.children();
   },
 });

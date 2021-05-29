@@ -70,6 +70,7 @@ input CategoriesFrontendOnBackendWhereUniqueInput {
 }
 
 type CategoryBackend {
+  children(after: CategoryBackendWhereUniqueInput, before: CategoryBackendWhereUniqueInput, first: Int, last: Int): [CategoryBackend!]!
   createdAt: DateTime!
   id: Int!
   level: Int!
