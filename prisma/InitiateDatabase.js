@@ -4,10 +4,9 @@ const prisma = new PrismaClient();
 async function main() {
   await prisma.categoryBackend.create({
     data: {
-      id: 0,
       show: false,
       name: '根级',
-      parentId: -1,
+      parentId: 0,
     },
   });
 }

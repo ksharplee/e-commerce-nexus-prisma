@@ -8,7 +8,7 @@ export const Query = queryType({
       resolve: async (_root, _args, { prisma }) => {
         return await prisma.categoryBackend.findMany({
           where: {
-            parentId: 0,
+            parentId: 1,
           },
           include: {
             children: true,
