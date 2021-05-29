@@ -6,7 +6,6 @@ async function main() {
     data: {
       show: false,
       name: '根级',
-      parentId: 0,
     },
   });
 }

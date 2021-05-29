@@ -15,7 +15,7 @@ generator client {
 
 model CategoryBackend {
   id         Int                           @id @default(autoincrement())
-  parentId   Int
+  parentId   Int?
   parent     CategoryBackend?              @relation("CategoryBackendParentChildren", fields: [parentId], references: [id])
   children   CategoryBackend[]             @relation("CategoryBackendParentChildren")
   show       Boolean                       @default(true)
@@ -42,7 +42,7 @@ model CategoriesFrontendOnBackend {
 
 model CategoryFrontend {
   id         Int                           @id @default(autoincrement())
-  parentId   Int
+  parentId   Int?
   parent     CategoryFrontend?             @relation("CategoryFrontendParentChildren", fields: [parentId], references: [id])
   children   CategoryFrontend[]            @relation("CategoryFrontendParentChildren")
   show       Boolean                       @default(true)
