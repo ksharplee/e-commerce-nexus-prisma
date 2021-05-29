@@ -1,0 +1,66 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// comment: This comment is for the reader's clarity and is not present in the abstract syntax tree (AST) of the schema file.
+/// comment: These comments will show up in the abstract syntax tree (AST) of the schema file as descriptions to AST nodes. Tools can then use these comments to provide additional information. All comments are attached to the next available node - free-floating comments are not supported and are not included in the AST.
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model CategoryBackend {
+  id         Int                           @id @default(autoincrement())
+  parentId   Int?
+  parent     CategoryBackend?              @relation("CategoryBackendParentChildren", fields: [parentId], references: [id])
+  children   CategoryBackend[]             @relation("CategoryBackendParentChildren")
+  show       Boolean                       @default(true)
+  name       String                        @db.VarChar(50)
+  level      Int                           @default(1) @db.TinyInt
+  createdAt  DateTime                      @default(now())
+  updatedAt  DateTime                      @updatedAt
+  categories CategoriesFrontendOnBackend[]
+
+  @@map(name: "goods_cate_backend")
+}
+
+model CategoriesFrontendOnBackend {
+  frontendId       Int
+  backendId        Int
+  createdAt        DateTime         @default(now())
+  updatedAt        DateTime         @updatedAt
+  categoryFrontend CategoryFrontend @relation(fields: [frontendId], references: [id])
+  categoryBackend  CategoryBackend  @relation(fields: [backendId], references: [id])
+
+  @@id([frontendId, backendId])
+  @@map(name: "goods_cate_relation")
+}
+
+model CategoryFrontend {
+  id         Int                           @id @default(autoincrement())
+  parentId   Int?
+  parent     CategoryFrontend?             @relation("CategoryFrontendParentChildren", fields: [parentId], references: [id])
+  children   CategoryFrontend[]            @relation("CategoryFrontendParentChildren")
+  show       Boolean                       @default(true)
+  image      String?
+  icon       String?
+  name       String                        @db.VarChar(50)
+  createdAt  DateTime                      @default(now())
+  updatedAt  DateTime                      @updatedAt
+  categories CategoriesFrontendOnBackend[]
+
+  @@map(name: "goods_cate_frontend")
+}
+
+model CategoryGroup {
+  id        Int      @id @default(autoincrement())
+  show      Boolean
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map(name: "goods_cate_group")
+}
